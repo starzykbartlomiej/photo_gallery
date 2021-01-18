@@ -1,7 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    cli \
-    gui \
-    tests \
+    imageviewer \
     utils
