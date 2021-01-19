@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>941</width>
-    <height>547</height>
+    <width>935</width>
+    <height>536</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,34 +24,25 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_1">
-       <widget class="QLabel" name="label_picture">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>40</y>
-          <width>811</width>
-          <height>381</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_picture">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="page_2">
-       <widget class="QListWidget" name="listImages">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>30</y>
-          <width>831</width>
-          <height>381</height>
-         </rect>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QListWidget" name="listImages"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -157,7 +148,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>941</width>
+     <width>935</width>
      <height>20</height>
     </rect>
    </property>

@@ -115,3 +115,5 @@ void MainWindow::on_pbBack_clicked()
     auto pix = imagesItems[index].icon().pixmap(QSize(width, height));
     ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
 }
+
+
