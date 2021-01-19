@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>881</width>
-    <height>506</height>
+    <width>941</width>
+    <height>547</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,156 +20,144 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QStackedWidget" name="stackedWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>861</width>
-      <height>401</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>1</number>
-    </property>
-    <widget class="QWidget" name="page_3">
-     <widget class="QLabel" name="label_picture">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>631</width>
-        <height>321</height>
-       </rect>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <property name="text">
-       <string/>
-      </property>
+      <widget class="QWidget" name="page_1">
+       <widget class="QLabel" name="label_picture">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>40</y>
+          <width>811</width>
+          <height>381</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <widget class="QListWidget" name="listImages">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>30</y>
+          <width>831</width>
+          <height>381</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="page_4">
-     <widget class="QListWidget" name="listWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>831</width>
-        <height>381</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>440</y>
-      <width>641</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0">
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>X</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&lt;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Slide show</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Rotate</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>60</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbRotate">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Rotate</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbBack">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>&lt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbSlideShow">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Slide show</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbNext">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbExit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>X</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>60</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>881</width>
+     <width>941</width>
      <height>20</height>
     </rect>
    </property>
