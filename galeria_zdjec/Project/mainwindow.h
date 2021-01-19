@@ -8,6 +8,7 @@
 #include <QtDebug>
 #include <QListWidgetItem>
 #include <QStateMachine>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,23 +21,25 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void escPressEvent(QKeyEvent *event);
 
 private slots:
-
     void on_listImages_itemDoubleClicked(QListWidgetItem *item);
-
     void on_pbNext_clicked();
-
     void on_pbBack_clicked();
+    void showSlides();
+    void exitSlides();
+    void viewSlide();
+
 
 signals:
     void imageDoubleClicked();
-
 
 private:
     Ui::MainWindow *ui;
     std::vector<QFileInfo> imagesInfos;
     std::vector<QListWidgetItem> imagesItems;
     QListWidgetItem *currentImage;
+    QTimer *timer;
 };
 #endif // MAINWINDOW_H

@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //timer
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(viewSlide()));
+
     //thumbnails
     QDir dir(QDir::home());
     QDir::setCurrent(dir.path());
@@ -19,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
             imagesInfos.push_back(it.fileInfo());
     }
     ui->listImages->setViewMode(QListWidget::IconMode);
-    ui->listImages->setIconSize(QSize(130,130));
+    ui->listImages->setIconSize(QSize(80,80));
     ui->listImages->setResizeMode(QListWidget::Adjust);
     foreach(auto imageinfo, imagesInfos)
     {
@@ -32,23 +36,32 @@ MainWindow::MainWindow(QWidget *parent)
     auto stateMachine = new QStateMachine(this);
     auto startupState = new QState(stateMachine);
     auto openState = new QState(stateMachine);
+    auto slidesState = new QState(stateMachine);
 
     startupState->assignProperty(ui->pbBack, "enabled", false);
     startupState->assignProperty(ui->pbExit, "enabled", false);
     startupState->assignProperty(ui->pbNext, "enabled", false);
     startupState->assignProperty(ui->pbRotate, "enabled", false);
-    startupState->assignProperty(ui->pbSlideShow, "enabled", false);
+    startupState->assignProperty(ui->pbSlidesShow, "enabled", false);
     startupState->assignProperty(ui->stackedWidget, "currentIndex", 1);
+    startupState->assignProperty(ui->stackedWidget_2, "currentIndex", 0);
 
     openState->assignProperty(ui->pbBack, "enabled", true);
     openState->assignProperty(ui->pbExit, "enabled", true);
     openState->assignProperty(ui->pbNext, "enabled", true);
     openState->assignProperty(ui->pbRotate, "enabled", true);
-    openState->assignProperty(ui->pbSlideShow, "enabled", true);
+    openState->assignProperty(ui->pbSlidesShow, "enabled", true);
     openState->assignProperty(ui->stackedWidget, "currentIndex", 0);
+
+    slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
+
+    connect(slidesState, SIGNAL(entered()), this, SLOT(showSlides()));
+    connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides()));
 
     startupState->addTransition(this, SIGNAL(imageDoubleClicked()), openState);
     openState->addTransition(ui->pbExit, SIGNAL(clicked()), startupState);
+    openState->addTransition(ui->pbSlidesShow, SIGNAL(clicked()), slidesState);
+    slidesState->addTransition(ui->pbFullScreenExit, SIGNAL(clicked()), openState);
 
     stateMachine->setInitialState(startupState);
     stateMachine->start();
@@ -116,4 +129,32 @@ void MainWindow::on_pbBack_clicked()
     ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
 }
 
+void MainWindow::showSlides()
+{
+    QWidget::showFullScreen();
+    timer->start(5000);
+}
+void MainWindow::viewSlide()
+{
+    unsigned long index = 0;
+    for(unsigned long i=0; i<imagesItems.size()-1; i++)
+    {
+        if(currentImage->text() == imagesItems[i].text())
+            index = i+1;
+    }
 
+    ui->statusbar->clearMessage();
+    ui->statusbar->showMessage(imagesItems[index].text());
+
+    currentImage = &(imagesItems[index]);
+    int width = ui->labelSlide->width();
+    int height = ui->labelSlide->height();
+    ui->labelSlide->setAlignment(Qt::AlignCenter);
+    auto pix = imagesItems[index].icon().pixmap(QSize(width, height));
+    ui->labelSlide->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+}
+void MainWindow::exitSlides()
+{
+    QWidget::showNormal();
+    timer->stop();
+}
