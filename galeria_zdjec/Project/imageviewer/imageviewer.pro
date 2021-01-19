@@ -36,3 +36,6 @@ else:unix: LIBS += -L$$OUT_PWD/../utils/ -lutils
 
 INCLUDEPATH += $$PWD/../utils
 DEPENDPATH += $$PWD/../utils
+
+RESOURCES += \
+    resource.qrc
