@@ -61,7 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
     startupState->addTransition(this, SIGNAL(imageDoubleClicked()), openState);
     openState->addTransition(ui->pbExit, SIGNAL(clicked()), startupState);
     openState->addTransition(ui->pbSlidesShow, SIGNAL(clicked()), slidesState);
-    slidesState->addTransition(ui->pbFullScreenExit, SIGNAL(clicked()), openState);
+    slidesState->addTransition(ui->pbFullScreenExit, SIGNAL(clicked()), startupState);
+
 
     stateMachine->setInitialState(startupState);
     stateMachine->start();
@@ -131,8 +132,14 @@ void MainWindow::on_pbBack_clicked()
 
 void MainWindow::showSlides()
 {
+    int width = ui->labelSlide->width();
+    int height = ui->labelSlide->height();
+    ui->labelSlide->setAlignment(Qt::AlignCenter);
+    auto pix = currentImage->icon().pixmap(QSize(width, height));
+    ui->labelSlide->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+
     QWidget::showFullScreen();
-    timer->start(5000);
+    timer->start(3000);
 }
 void MainWindow::viewSlide()
 {
@@ -155,6 +162,6 @@ void MainWindow::viewSlide()
 }
 void MainWindow::exitSlides()
 {
-    QWidget::showNormal();
     timer->stop();
+    QWidget::showNormal();
 }
