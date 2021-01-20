@@ -24,6 +24,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -39,6 +40,9 @@ public:
     QStackedWidget *stackedWidget_2;
     QWidget *page_0_front;
     QVBoxLayout *verticalLayout;
+    QTabWidget *tabWidget;
+    QWidget *tab_images;
+    QVBoxLayout *verticalLayout_6;
     QStackedWidget *stackedWidget;
     QWidget *page_1;
     QVBoxLayout *verticalLayout_2;
@@ -46,6 +50,7 @@ public:
     QWidget *page_2;
     QVBoxLayout *verticalLayout_3;
     QListWidget *listImages;
+    QWidget *tab_albums;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *pbRotate;
@@ -88,7 +93,13 @@ public:
         page_0_front->setObjectName(QStringLiteral("page_0_front"));
         verticalLayout = new QVBoxLayout(page_0_front);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        stackedWidget = new QStackedWidget(page_0_front);
+        tabWidget = new QTabWidget(page_0_front);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tab_images = new QWidget();
+        tab_images->setObjectName(QStringLiteral("tab_images"));
+        verticalLayout_6 = new QVBoxLayout(tab_images);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        stackedWidget = new QStackedWidget(tab_images);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         page_1 = new QWidget();
         page_1->setObjectName(QStringLiteral("page_1"));
@@ -112,7 +123,14 @@ public:
 
         stackedWidget->addWidget(page_2);
 
-        verticalLayout->addWidget(stackedWidget);
+        verticalLayout_6->addWidget(stackedWidget);
+
+        tabWidget->addTab(tab_images, QString());
+        tab_albums = new QWidget();
+        tab_albums->setObjectName(QStringLiteral("tab_albums"));
+        tabWidget->addTab(tab_albums, QString());
+
+        verticalLayout->addWidget(tabWidget);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -207,11 +225,11 @@ public:
 
         menubar->addAction(menuOptions->menuAction());
         menuOptions->addAction(actionFilters);
-        menuOptions->addAction(actionAlbums);
 
         retranslateUi(MainWindow);
 
-        stackedWidget_2->setCurrentIndex(1);
+        stackedWidget_2->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(0);
         stackedWidget->setCurrentIndex(0);
 
 
@@ -224,6 +242,8 @@ public:
         actionFilters->setText(QApplication::translate("MainWindow", "Filters", Q_NULLPTR));
         actionAlbums->setText(QApplication::translate("MainWindow", "Albums", Q_NULLPTR));
         label_picture->setText(QString());
+        tabWidget->setTabText(tabWidget->indexOf(tab_images), QApplication::translate("MainWindow", "Images", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab_albums), QApplication::translate("MainWindow", "Albums", Q_NULLPTR));
         pbRotate->setText(QApplication::translate("MainWindow", "Rotate", Q_NULLPTR));
         pbBack->setText(QApplication::translate("MainWindow", "<", Q_NULLPTR));
         pbSlidesShow->setText(QApplication::translate("MainWindow", "Slides show", Q_NULLPTR));
