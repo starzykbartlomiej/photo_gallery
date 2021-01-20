@@ -165,3 +165,23 @@ void MainWindow::exitSlides()
     timer->stop();
     QWidget::showNormal();
 }
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString albumName=ui->albumName->displayText();
+    if(albumName==""){
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Album must have name");
+        messageBox.setFixedSize(500,200);
+    }
+    QDir dir(QApplication::applicationDirPath()+albumName);
+    if(dir.exists()){
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Album had been created befor");
+        messageBox.setFixedSize(500,200);
+    }else{
+        dir.mkpath(QApplication::applicationDirPath()+albumName);
+        AlbumList.push_back(dir);
+    }
+}

@@ -9,6 +9,7 @@
 #include <QListWidgetItem>
 #include <QStateMachine>
 #include <QTimer>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,7 +31,7 @@ private slots:
     void showSlides();
     void exitSlides();
     void viewSlide();
-
+    void on_pushButton_2_clicked();
 
 signals:
     void imageDoubleClicked();
@@ -39,6 +40,7 @@ private:
     Ui::MainWindow *ui;
     std::vector<QFileInfo> imagesInfos;
     std::vector<QListWidgetItem> imagesItems;
+    std::vector<QDir> AlbumList;
     QListWidgetItem *currentImage;
     QTimer *timer;
 };

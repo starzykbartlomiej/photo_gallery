@@ -31,7 +31,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_images">
            <attribute name="title">
@@ -73,6 +73,109 @@
            <attribute name="title">
             <string>Albums</string>
            </attribute>
+           <widget class="QPushButton" name="pushButton">
+            <property name="geometry">
+             <rect>
+              <x>20</x>
+              <y>20</y>
+              <width>111</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Add new album</string>
+            </property>
+           </widget>
+           <widget class="QTabWidget" name="tabWidget_2">
+            <property name="geometry">
+             <rect>
+              <x>-10</x>
+              <y>-30</y>
+              <width>899</width>
+              <height>427</height>
+             </rect>
+            </property>
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <widget class="QWidget" name="tab_images_2">
+             <attribute name="title">
+              <string>Images</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QStackedWidget" name="stackedWidget_3">
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="page_3">
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <widget class="QLabel" name="label_picture_2">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_4">
+                 <layout class="QVBoxLayout" name="verticalLayout_9">
+                  <item>
+                   <widget class="QListWidget" name="listImages_2">
+                    <property name="movement">
+                     <enum>QListView::Static</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_albums_2">
+             <attribute name="title">
+              <string>Albums</string>
+             </attribute>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="geometry">
+               <rect>
+                <x>30</x>
+                <y>60</y>
+                <width>111</width>
+                <height>41</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Add new album</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>20</y>
+                <width>59</width>
+                <height>15</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="albumName">
+              <property name="geometry">
+               <rect>
+                <x>70</x>
+                <y>20</y>
+                <width>141</width>
+                <height>21</height>
+               </rect>
+              </property>
+             </widget>
+            </widget>
+           </widget>
           </widget>
          </widget>
         </item>
