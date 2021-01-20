@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
     QDir dir(QDir::home());
     QDir::setCurrent(dir.path());
     QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
-
     while(it.hasNext())
     {
         it.next();
@@ -31,6 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
         ui->listImages->addItem(item);
         imagesItems.push_back(*item);
     }
+    QDirIterator itr(dir.path()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums",QDir::AllDirs| QDir::NoDotAndDotDot);
+    while (itr.hasNext()) {
+                AlbumList.push_back(itr.next());
+    }
+    foreach(auto album,AlbumList){
+        ui->AlbumListWidget->addItem(album.dirName());
+    }
 
     //states
     auto stateMachine = new QStateMachine(this);
@@ -43,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     startupState->assignProperty(ui->pbNext, "enabled", false);
     startupState->assignProperty(ui->pbRotate, "enabled", false);
     startupState->assignProperty(ui->pbSlidesShow, "enabled", false);
+    startupState->assignProperty(ui->pbAddtoalbum,"enabled",false);
     startupState->assignProperty(ui->stackedWidget, "currentIndex", 1);
     startupState->assignProperty(ui->stackedWidget_2, "currentIndex", 0);
 
@@ -51,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
     openState->assignProperty(ui->pbNext, "enabled", true);
     openState->assignProperty(ui->pbRotate, "enabled", true);
     openState->assignProperty(ui->pbSlidesShow, "enabled", true);
+    openState->assignProperty(ui->pbAddtoalbum,"enabled",true);
     openState->assignProperty(ui->stackedWidget, "currentIndex", 0);
 
     slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
@@ -175,13 +183,20 @@ void MainWindow::on_pushButton_2_clicked()
         messageBox.critical(0,"Error","Album must have name");
         messageBox.setFixedSize(500,200);
     }
-    QDir dir(QApplication::applicationDirPath()+albumName);
-    if(dir.exists()){
+    QString pathAlbum;
+    QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
+    qDebug() << dir.path();
+    dir.setCurrent("/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
+    qDebug() << dir.path();
+    QDir dir2(albumName);
+    if(dir2.exists()){
         QMessageBox messageBox;
         messageBox.critical(0,"Error","Album had been created befor");
         messageBox.setFixedSize(500,200);
     }else{
-        dir.mkpath(QApplication::applicationDirPath()+albumName);
-        AlbumList.push_back(dir);
+        dir.mkdir(dir2.dirName());
+        AlbumList.push_back(dir2);
+        ui->AlbumListWidget->addItem(dir2.dirName());
+
     }
 }
