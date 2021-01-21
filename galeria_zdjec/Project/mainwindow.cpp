@@ -35,7 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
                 AlbumList.push_back(itr.next());
     }
     foreach(auto album,AlbumList){
+        auto item=new QListWidgetItem(album.dirName());
         ui->AlbumListWidget->addItem(album.dirName());
+        dirItem.push_back(*item);
     }
 
     //states
@@ -43,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     auto startupState = new QState(stateMachine);
     auto openState = new QState(stateMachine);
     auto slidesState = new QState(stateMachine);
+    //auto AddToAlbumState=new QState(stateMachine);
 
     startupState->assignProperty(ui->pbBack, "enabled", false);
     startupState->assignProperty(ui->pbExit, "enabled", false);
@@ -61,7 +64,17 @@ MainWindow::MainWindow(QWidget *parent)
     openState->assignProperty(ui->pbAddtoalbum,"enabled",true);
     openState->assignProperty(ui->stackedWidget, "currentIndex", 0);
 
-    slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
+//    AddToAlbumState->assignProperty(ui->pbBack, "enabled", false);
+//    AddToAlbumState->assignProperty(ui->pbExit, "enabled", false);
+//    AddToAlbumState->assignProperty(ui->pbNext, "enabled", false);
+//    AddToAlbumState->assignProperty(ui->pbRotate, "enabled", false);
+//    AddToAlbumState->assignProperty(ui->pbSlidesShow, "enabled", false);
+//    AddToAlbumState->assignProperty(ui->pbAddtoalbum,"enabled",true);
+//    AddToAlbumState->assignProperty(ui->stackedWidget, "currentIndex", 1);
+//    startupState->assignProperty(ui->stackedWidget_2, "currentIndex", 0);
+
+
+//    slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
 
     connect(slidesState, SIGNAL(entered()), this, SLOT(showSlides()));
     connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides()));
@@ -182,6 +195,7 @@ void MainWindow::on_pushButton_2_clicked()
         QMessageBox messageBox;
         messageBox.critical(0,"Error","Album must have name");
         messageBox.setFixedSize(500,200);
+        return;
     }
     QString pathAlbum;
     QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
@@ -196,7 +210,25 @@ void MainWindow::on_pushButton_2_clicked()
     }else{
         dir.mkdir(dir2.dirName());
         AlbumList.push_back(dir2);
+        auto item=new QListWidgetItem(dir2.dirName());
         ui->AlbumListWidget->addItem(dir2.dirName());
+        dirItem.push_back(*item);
+        ui->albumName->setText("");
 
     }
+}
+
+void MainWindow::on_pbAddtoalbum_clicked()
+{
+    QFileInfo wantToSave;
+    foreach(auto f,imagesInfos){
+        if(f.fileName()==currentImage->text())
+            wantToSave=f;
+    }
+    qDebug()<<wantToSave.path()+wantToSave.fileName();
+    QDir directory = QFileDialog::getExistingDirectory(this, tr("select directory"),QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums",QFileDialog::ShowDirsOnly);
+    qDebug()<<directory.path();
+    QFile::copy(wantToSave.path()+'/'+wantToSave.fileName(),directory.path()+'/'+wantToSave.fileName());
+
+
 }

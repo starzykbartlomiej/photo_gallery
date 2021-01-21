@@ -10,7 +10,7 @@
 #include <QStateMachine>
 #include <QTimer>
 #include <QMessageBox>
-
+#include <QFileDialog>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -33,6 +33,8 @@ private slots:
     void viewSlide();
     void on_pushButton_2_clicked();
 
+    void on_pbAddtoalbum_clicked();
+
 signals:
     void imageDoubleClicked();
 
@@ -40,6 +42,7 @@ private:
     Ui::MainWindow *ui;
     std::vector<QFileInfo> imagesInfos;
     std::vector<QListWidgetItem> imagesItems;
+    std::vector<QListWidgetItem> dirItem;
     std::vector<QDir> AlbumList;
     QListWidgetItem *currentImage;
     QTimer *timer;
