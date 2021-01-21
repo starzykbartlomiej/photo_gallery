@@ -14,6 +14,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "album.h"
+#include "edit.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +42,8 @@ private slots:
 
     void on_AlbumListWidget_itemDoubleClicked(QListWidgetItem *item);
 
+    void on_pbEdit_clicked();
+
 signals:
     void imageDoubleClicked();
 
@@ -49,6 +52,7 @@ private:
     std::vector<QFileInfo> imagesInfos;
     std::vector<QListWidgetItem> imagesItems;
     std::vector<QListWidgetItem> dirItem;
+    std::vector<QString> dirPath;
     std::vector<QDir> AlbumList;
     QListWidgetItem *currentImage;
     QTimer *timer;

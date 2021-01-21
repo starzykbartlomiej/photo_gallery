@@ -17,15 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     album.cpp \
+    edit.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     album.h \
+    edit.h \
     mainwindow.h
 
 FORMS += \
     album.ui \
+    edit.ui \
     mainwindow.ui
 
 # Default rules for deployment.
