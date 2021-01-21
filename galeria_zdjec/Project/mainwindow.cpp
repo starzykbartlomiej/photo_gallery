@@ -247,15 +247,17 @@ void MainWindow::on_pbAddtoalbum_clicked()
 void MainWindow::on_AlbumListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums/"+item->text());
-    QString imgPath=QFileDialog::getOpenFileName(this,tr("Open Image"), dir.path(), tr("Image Files (*.png *.jpg *.bmp)"));
-    QImage* imgObject=new QImage();
-    imgObject->load(imgPath);
-    QPixmap image=QPixmap::fromImage(*imgObject);
-    QGraphicsScene *scene=new QGraphicsScene(this);
-    scene->addPixmap(image);
-    scene->setSceneRect(image.rect());
-    Album album(scene);
-    album.setModal(true);
+    //QString imgPath=QFileDialog::getOpenFileName(this,tr("Open Image"), dir.path(), tr("Image Files (*.png *.jpg *.bmp)"));
+//    if(imgPath==""){
+//        return;
+//    }
+    //QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
+//    while(it.hasNext()){
+//        it.next();
+//        qDebug()<<it.fileName();
+//    }
+    Album album(dir.path());
+    album.setModal(false);
     album.exec();
 
 }
