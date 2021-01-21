@@ -18,8 +18,17 @@ MainWindow::MainWindow(QWidget *parent)
     while(it.hasNext())
     {
         it.next();
-        if(it.fileInfo().isFile())
+        int spr=1;
+        if(it.fileInfo().isFile()){
+        foreach(auto it2, imagesInfos){
+            if(it.fileName()==it2.fileName()){
+                spr=0;
+                break;
+            }
+        }
+            if(spr)
             imagesInfos.push_back(it.fileInfo());
+        }
     }
     ui->listImages->setViewMode(QListWidget::IconMode);
     ui->listImages->setIconSize(QSize(80,80));
@@ -230,5 +239,23 @@ void MainWindow::on_pbAddtoalbum_clicked()
     qDebug()<<directory.path();
     QFile::copy(wantToSave.path()+'/'+wantToSave.fileName(),directory.path()+'/'+wantToSave.fileName());
 
+
+}
+
+
+
+void MainWindow::on_AlbumListWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums/"+item->text());
+    QString imgPath=QFileDialog::getOpenFileName(this,tr("Open Image"), dir.path(), tr("Image Files (*.png *.jpg *.bmp)"));
+    QImage* imgObject=new QImage();
+    imgObject->load(imgPath);
+    QPixmap image=QPixmap::fromImage(*imgObject);
+    QGraphicsScene *scene=new QGraphicsScene(this);
+    scene->addPixmap(image);
+    scene->setSceneRect(image.rect());
+    Album album(scene);
+    album.setModal(true);
+    album.exec();
 
 }

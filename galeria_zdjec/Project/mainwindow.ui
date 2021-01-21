@@ -31,7 +31,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_images">
            <attribute name="title">
@@ -89,7 +89,7 @@
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="geometry">
              <rect>
-              <x>-10</x>
+              <x>10</x>
               <y>-30</y>
               <width>899</width>
               <height>427</height>
@@ -141,8 +141,8 @@
              <widget class="QPushButton" name="pushButton_2">
               <property name="geometry">
                <rect>
-                <x>30</x>
-                <y>60</y>
+                <x>230</x>
+                <y>40</y>
                 <width>111</width>
                 <height>41</height>
                </rect>
@@ -177,10 +177,33 @@
              <widget class="QListWidget" name="AlbumListWidget">
               <property name="geometry">
                <rect>
-                <x>35</x>
-                <y>121</y>
-                <width>741</width>
+                <x>10</x>
+                <y>90</y>
+                <width>831</width>
                 <height>231</height>
+               </rect>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_2">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>51</y>
+                <width>71</width>
+                <height>20</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Description</string>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="DescriptionLine">
+              <property name="geometry">
+               <rect>
+                <x>70</x>
+                <y>50</y>
+                <width>141</width>
+                <height>21</height>
                </rect>
               </property>
              </widget>
