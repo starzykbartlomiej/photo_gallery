@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QDebug>
 #include <QGraphicsScene>
+#include <QListWidgetItem>
 #include <QMessageBox>
 #include <QIcon>
 #include <QPixmap>
@@ -23,7 +24,7 @@ public:
 
 private:
     Ui::Edit *ui;
-    QIcon* img;
+    QListWidgetItem *img;
 
 };
 
