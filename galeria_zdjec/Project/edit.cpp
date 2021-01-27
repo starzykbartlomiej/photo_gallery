@@ -5,14 +5,22 @@ Edit::Edit(QFileInfo imageFile,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Edit)
 {
-    ui->setupUi(this);
-    qDebug()<<imageFile.filePath()+'/'+imageFile.fileName();
-    img=new QListWidgetItem(QIcon(imageFile.path() + '/' + imageFile.fileName()),imageFile.fileName());
-    int width=ui->ImgLabel->width();
-    int height=ui->ImgLabel->height();
-    ui->ImgLabel->setAlignment(Qt::AlignCenter);
-    auto pix=img->icon().pixmap(QSize(width, height));
-    ui->ImgLabel->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+   ui->setupUi(this);
+   imageObject=new QImage();
+   imageObject->load(imageFile.filePath());
+   int height=ui->graphicsView->height();
+   int width=ui->graphicsView->width();
+   imageObject->scaled(width,height, Qt::KeepAspectRatio);
+   qDebug()<<imageFile.path();
+   qDebug()<<imageFile.fileName();
+   qDebug()<<imageFile.filePath();
+   image = QPixmap::fromImage(*imageObject);
+   image.scaled(width,height, Qt::KeepAspectRatio);
+   scene = new QGraphicsScene(this);
+   QGraphicsPixmapItem* p=scene->addPixmap(image);
+   scene->setSceneRect(image.rect());
+   ui->graphicsView->setScene(scene);
+   ui->graphicsView->fitInView(QRectF(0, 0, width, height), Qt::KeepAspectRatio);
 }
 Edit::~Edit()
 {

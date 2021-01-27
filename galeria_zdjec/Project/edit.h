@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QIcon>
 #include <QPixmap>
+#include <QGraphicsPixmapItem>
 
 namespace Ui {
 class Edit;
@@ -24,7 +25,9 @@ public:
 
 private:
     Ui::Edit *ui;
-    QListWidgetItem *img;
+    QPixmap image;
+    QImage  *imageObject;
+    QGraphicsScene *scene;
 
 };
 
