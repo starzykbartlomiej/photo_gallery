@@ -274,6 +274,43 @@ void MainWindow::on_pbEdit_clicked()
     Edit edit(wantToEdit);
     edit.setModal(false);
     edit.exec();
+    while(true){
+        if(!edit.edit){
+            continue;
+        }else {
+            QDir dir(QDir::home());
+            QDir::setCurrent(dir.path());
+            imagesInfos.clear();
+            ui->listImages->clear();
+            QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
+            while(it.hasNext())
+            {
+                it.next();
+                int spr=1;
+                if(it.fileInfo().isFile()){
+                foreach(auto it2, dirPath){
+                    if(it.filePath()==it2+'/'+it.fileName()){
+                        spr=0;
+                        break;
+                    }
+                }
+                    if(spr)
+                    imagesInfos.push_back(it.fileInfo());
+                }
+            }
+            ui->listImages->setViewMode(QListWidget::IconMode);
+            ui->listImages->setIconSize(QSize(80,80));
+            ui->listImages->setResizeMode(QListWidget::Adjust);
+            foreach(auto imageinfo, imagesInfos)
+            {
+                auto item = new QListWidgetItem(QIcon(imageinfo.path() + '/' + imageinfo.fileName()),imageinfo.fileName());
+                ui->listImages->addItem(item);
+                imagesItems.push_back(*item);
+            }
+            break;
+
+        }
+    }
 }
 
 void MainWindow::on_pbRotate_clicked()

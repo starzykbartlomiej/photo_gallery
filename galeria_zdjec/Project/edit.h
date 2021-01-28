@@ -22,6 +22,7 @@ class Edit : public QDialog
 
 public:
     explicit Edit(QFileInfo image,QWidget *parent = nullptr);
+    int edit=0;
     ~Edit();
 
 private slots:

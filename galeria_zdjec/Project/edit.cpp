@@ -70,6 +70,7 @@ void Edit::on_pushButton_clicked()
 
             *imageObject = image.toImage();
             imageObject->save(imagePath+".jpg");
+            edit=1;
             this->close();
 
 }
