@@ -47,8 +47,24 @@ void Edit::on_rotate_clicked()
 void Edit::on_pushButton_2_clicked()
 {
 
-       image = ui->graphicsView->viewport()->grab();
-
+       QImage image2 = imageObject->convertToFormat(QImage::Format_Indexed8);
+       image2.setColorCount(256);
+             for(int i = 0; i < 256; i++)
+             {
+                 image2.setColor(i, qRgb(i, i, i));
+             }
+       QPixmap pixmap1(QPixmap::fromImage (image2));
+       int height=ui->graphicsView->viewport()->height();
+       int width=ui->graphicsView->viewport()->width();
+       image = QPixmap::fromImage(image2);
+       image.scaled(width,height, Qt::KeepAspectRatio);
+       scene = new QGraphicsScene(this);
+       QGraphicsPixmapItem* p=scene->addPixmap(image.scaled(width,height,Qt::KeepAspectRatio));
+       scene->setSceneRect(image.scaled(width,height,Qt::KeepAspectRatio).rect());
+       ui->graphicsView->setScene(scene);
+       ui->graphicsView->fitInView(p, Qt::KeepAspectRatio);
+       ui->graphicsView->setScene(scene);
+       image=ui->graphicsView->viewport()->grab();
 
 }
 

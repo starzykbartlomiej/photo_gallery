@@ -275,6 +275,7 @@ void MainWindow::on_pbEdit_clicked()
     edit.setModal(false);
     edit.exec();
     while(true){
+
         if(!edit.edit){
             if(edit.close()){
                 qDebug()<<1;
@@ -311,6 +312,7 @@ void MainWindow::on_pbEdit_clicked()
                 ui->listImages->addItem(item);
                 imagesItems.push_back(*item);
             }
+            on_listImages_itemDoubleClicked(currentImage);
             break;
 
         }
