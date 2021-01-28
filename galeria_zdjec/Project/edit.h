@@ -1,6 +1,5 @@
 #ifndef EDIT_H
 #define EDIT_H
-
 #include <QDialog>
 #include <QFileInfo>
 #include <QDebug>
@@ -10,6 +9,8 @@
 #include <QIcon>
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include <QFileDialog>
+
 
 namespace Ui {
 class Edit;
@@ -23,6 +24,10 @@ public:
     explicit Edit(QFileInfo image,QWidget *parent = nullptr);
     ~Edit();
 
+private slots:
+    void on_rotate_clicked();
+    void on_pushButton_2_clicked();
+    void on_pushButton_clicked();
 private:
     Ui::Edit *ui;
     QPixmap image;

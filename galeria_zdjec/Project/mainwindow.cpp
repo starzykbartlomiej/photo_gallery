@@ -275,3 +275,31 @@ void MainWindow::on_pbEdit_clicked()
     edit.setModal(false);
     edit.exec();
 }
+
+void MainWindow::on_pbRotate_clicked()
+{
+
+}
+//void Edit::on_pushButton_clicked()
+//{
+//        QString imagePath = QFileDialog::getSaveFileName(
+
+//                        this,
+
+//                        tr("Save File"),
+
+//                        "",
+
+//                        tr("JPEG (*.jpg *.jpeg);;PNG (*.png)" )
+
+//                        );
+
+
+
+//            *imageObject = image.toImage();
+//            imageObject->save(imagePath+".jpg");
+//            this->close();
+
+
+
+//}

@@ -44,10 +44,12 @@ private slots:
 
     void on_pbEdit_clicked();
 
+    void on_pbRotate_clicked();
+
 signals:
     void imageDoubleClicked();
 
-private:
+protected:
     Ui::MainWindow *ui;
     std::vector<QFileInfo> imagesInfos;
     std::vector<QListWidgetItem> imagesItems;
