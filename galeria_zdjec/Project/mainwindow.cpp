@@ -276,6 +276,10 @@ void MainWindow::on_pbEdit_clicked()
     edit.exec();
     while(true){
         if(!edit.edit){
+            if(edit.close()){
+                qDebug()<<1;
+                break;
+            }
             continue;
         }else {
             QDir dir(QDir::home());
