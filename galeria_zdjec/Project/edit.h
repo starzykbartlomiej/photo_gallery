@@ -22,6 +22,7 @@ class Edit : public QDialog
 
 public:
     explicit Edit(QFileInfo image,QWidget *parent = nullptr);
+    QFileInfo* file();
     int edit=0;
     ~Edit();
 
@@ -30,6 +31,7 @@ private slots:
     void on_pushButton_2_clicked();
     void on_pushButton_clicked();
 private:
+    QFileInfo *f;
     Ui::Edit *ui;
     QPixmap image;
     QImage  *imageObject;

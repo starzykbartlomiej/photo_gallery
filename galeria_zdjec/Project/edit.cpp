@@ -54,8 +54,8 @@ void Edit::on_pushButton_2_clicked()
                  image2.setColor(i, qRgb(i, i, i));
              }
        QPixmap pixmap1(QPixmap::fromImage (image2));
-       int height=ui->graphicsView->viewport()->height();
-       int width=ui->graphicsView->viewport()->width();
+       int height=ui->graphicsView->height();
+       int width=ui->graphicsView->width();
        image = QPixmap::fromImage(image2);
        image.scaled(width,height, Qt::KeepAspectRatio);
        scene = new QGraphicsScene(this);
@@ -67,7 +67,6 @@ void Edit::on_pushButton_2_clicked()
        image=ui->graphicsView->viewport()->grab();
 
 }
-
 void Edit::on_pushButton_clicked()
 {
         QString imagePath = QFileDialog::getSaveFileName(
@@ -88,5 +87,10 @@ void Edit::on_pushButton_clicked()
             imageObject->save(imagePath+".jpg");
             this->close();
             edit=1;
+            f=new QFileInfo(imagePath+".jpg");
 
+
+}
+QFileInfo* Edit::file(){
+    return f;
 }
