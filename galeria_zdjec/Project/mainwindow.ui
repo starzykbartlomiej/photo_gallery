@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
-    <height>458</height>
+    <width>1288</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -367,7 +367,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>950</width>
+     <width>1288</width>
      <height>20</height>
     </rect>
    </property>
@@ -375,19 +375,40 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionFilters"/>
+    <widget class="QMenu" name="menuFilters">
+     <property name="title">
+      <string>Filters</string>
+     </property>
+     <addaction name="actionBy_Date"/>
+     <addaction name="separator"/>
+     <addaction name="actionBy_Na_e"/>
+     <addaction name="separator"/>
+     <addaction name="actionBy_Type"/>
+     <addaction name="separator"/>
+    </widget>
+    <addaction name="menuFilters"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionFilters">
-   <property name="text">
-    <string>Filters</string>
-   </property>
-  </action>
   <action name="actionAlbums">
    <property name="text">
     <string>Albums</string>
+   </property>
+  </action>
+  <action name="actionBy_Date">
+   <property name="text">
+    <string>By Date</string>
+   </property>
+  </action>
+  <action name="actionBy_Na_e">
+   <property name="text">
+    <string>By Name</string>
+   </property>
+  </action>
+  <action name="actionBy_Type">
+   <property name="text">
+    <string>By Type</string>
    </property>
   </action>
  </widget>

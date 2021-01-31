@@ -350,3 +350,8 @@ void MainWindow::on_pbRotate_clicked()
 
 
 //}
+
+void MainWindow::on_actionBy_Date_triggered()
+{
+
+}

@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QPixmap>
 #include <QtDebug>
+#include <QDebug>
 #include <QListWidgetItem>
 #include <QStateMachine>
 #include <QTimer>
@@ -45,6 +46,8 @@ private slots:
     void on_pbEdit_clicked();
 
     void on_pbRotate_clicked();
+
+    void on_actionBy_Date_triggered();
 
 signals:
     void imageDoubleClicked();
