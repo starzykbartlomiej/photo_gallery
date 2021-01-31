@@ -10,6 +10,7 @@
 #include <QListWidgetItem>
 #include <QStateMachine>
 #include <QTimer>
+#include <QDate>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>

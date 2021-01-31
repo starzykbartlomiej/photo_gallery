@@ -352,11 +352,6 @@ void MainWindow::on_pbRotate_clicked()
 
 //}
 
-void MainWindow::on_actionBy_Date_triggered()
-{
-
-
-}
 
 void MainWindow::on_actionBy_Na_e_triggered()
 {
@@ -364,10 +359,7 @@ void MainWindow::on_actionBy_Na_e_triggered()
     QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                          tr("File Name:"), QLineEdit::Normal,
                                          "", &confirm);
-    QDir dir(QDir::home());
-    QDir::setCurrent(dir.path());
-
-    newView(text, 1);
+    if (confirm) newView(text, 1);
 
 
 }
@@ -377,23 +369,39 @@ void MainWindow::on_actionBy_Type_triggered()
     QStringList items = {"jpg", "png"};
     bool confirm;
     QString text = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),
-                                         tr("File Type:"), items, 0, false, &confirm);
-    newView(text, 2);
+                                         tr("File Type:"), items, 0, false, &confirm); //works on cancel - to correct
+    if (confirm) newView(text, 2);
+}
+
+
+void MainWindow::on_actionBy_Date_triggered()
+{
+    bool confirm;
+    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                         tr("File Date:"), QLineEdit::Normal,
+                                         "", &confirm);
+    if (confirm && !text.isEmpty())
+    {
+        QDate date = QDate::fromString(text, "dd/MM/yyyy");
+        if (!date.isValid()) date = QDate::fromString(text, "dd:MM:yyyy");
+        if (!date.isValid()) date = QDate::fromString(text, "dd-MM-yyyy");
+        if (!date.isValid()) date = QDate::fromString(text, "dd.MM.yyyy");
+        if (!date.isValid()) QMessageBox::warning(this, "Error", "Wrong date format!");
+        else newView(date.toString(), 3);
+    }
 }
 
 void MainWindow::newView(QString text, int type)
 {
-
-//    QDirIterator iterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories);
-//    QDirIterator iterator(dir.path(), {"*."+text}, QDir::Files, QDirIterator::Subdirectories);
     imagesItems.clear();
     ui->listImages->clear();
     imagesInfos.clear();
     QDir dir(QDir::home());
     QDir::setCurrent(dir.path());
-    std::unique_ptr<QDirIterator> iterator; //must be passed pointer, in other case problem with redefintion
+    std::unique_ptr<QDirIterator> iterator; //must be passed by pointer, in other case problem with redefintion and init
     if (type==1)  iterator.reset(new QDirIterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories));
     else if(type==2) iterator.reset(new QDirIterator(dir.path(), {"*."+text}, QDir::Files, QDirIterator::Subdirectories));
+    else if(type==3) iterator.reset(new QDirIterator(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories));
 
     while(iterator->hasNext())
     {
@@ -417,9 +425,25 @@ void MainWindow::newView(QString text, int type)
     ui->listImages->setResizeMode(QListWidget::Adjust);
     foreach(auto imageInfo, imagesInfos)
     {
+        if (type!=3)
+        {
         auto item = new QListWidgetItem(QIcon(imageInfo.path() + '/' + imageInfo.fileName()),imageInfo.fileName());
         ui->listImages->addItem(item);
         imagesItems.push_back(*item);
+        }
+        else
+        {
+            auto compare = imageInfo.created().toString().split(" ");
+            compare.removeOne(compare[3]);
+            compare.removeOne(compare[0]);
+            auto text_compare = text.split(" ");
+            text_compare.removeOne(text_compare[0]);
+            if (compare.join(" ")==text_compare.join(" "))
+            {
+                auto item = new QListWidgetItem(QIcon(imageInfo.path() + '/' + imageInfo.fileName()),imageInfo.fileName());
+                ui->listImages->addItem(item);
+                imagesItems.push_back(*item);
+            }
+        }
     }
-
 }
