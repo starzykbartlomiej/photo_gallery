@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -363,45 +364,62 @@ void MainWindow::on_actionBy_Na_e_triggered()
     QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                          tr("File Name:"), QLineEdit::Normal,
                                          "", &confirm);
+    QDir dir(QDir::home());
+    QDir::setCurrent(dir.path());
 
-        imagesItems.clear();
-        ui->listImages->clear();
-        imagesInfos.clear();
-        QDir dir(QDir::home());
-        QDir::setCurrent(dir.path());
-        QDirIterator iterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories);
-        while(iterator.hasNext())
-        {
-            iterator.next();
-            int spr=1;
-            if(iterator.fileInfo().isFile()){
-            foreach(auto it2, dirPath){
-                if(iterator.filePath()==it2+'/'+iterator.fileName()){
-                    spr=0;
-                    break;
-                }
-            }
-                if(spr)
-                imagesInfos.push_back(iterator.fileInfo());
-            }
-        }
-        ui->listImages->setViewMode(QListWidget::IconMode);
-        ui->listImages->setIconSize(QSize(80,80));
-        ui->listImages->setResizeMode(QListWidget::Adjust);
-        foreach(auto imageInfo, imagesInfos)
-        {
-            auto item = new QListWidgetItem(QIcon(imageInfo.path() + '/' + imageInfo.fileName()),imageInfo.fileName());
-            ui->listImages->addItem(item);
-            imagesItems.push_back(*item);
-        }
-
-
+    newView(text, 1);
 
 
 }
 
 void MainWindow::on_actionBy_Type_triggered()
 {
+    QStringList items = {"jpg", "png"};
+    bool confirm;
+    QString text = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),
+                                         tr("File Type:"), items, 0, false, &confirm);
+    newView(text, 2);
+}
 
+void MainWindow::newView(QString text, int type)
+{
+
+//    QDirIterator iterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories);
+//    QDirIterator iterator(dir.path(), {"*."+text}, QDir::Files, QDirIterator::Subdirectories);
+    imagesItems.clear();
+    ui->listImages->clear();
+    imagesInfos.clear();
+    QDir dir(QDir::home());
+    QDir::setCurrent(dir.path());
+    std::unique_ptr<QDirIterator> iterator; //must be passed pointer, in other case problem with redefintion
+    if (type==1)  iterator.reset(new QDirIterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories));
+    else if(type==2) iterator.reset(new QDirIterator(dir.path(), {"*."+text}, QDir::Files, QDirIterator::Subdirectories));
+
+    while(iterator->hasNext())
+    {
+        iterator->next();
+        bool check=true;
+        if(iterator->fileInfo().isFile())
+        {
+        foreach(auto path, dirPath)
+        {
+            if(iterator->filePath()==path+'/'+iterator->fileName())
+            {
+                check=false;
+                break;
+            }
+        }
+            if(check) imagesInfos.push_back(iterator->fileInfo());
+        }
+    }
+    ui->listImages->setViewMode(QListWidget::IconMode);
+    ui->listImages->setIconSize(QSize(80,80));
+    ui->listImages->setResizeMode(QListWidget::Adjust);
+    foreach(auto imageInfo, imagesInfos)
+    {
+        auto item = new QListWidgetItem(QIcon(imageInfo.path() + '/' + imageInfo.fileName()),imageInfo.fileName());
+        ui->listImages->addItem(item);
+        imagesItems.push_back(*item);
+    }
 
 }

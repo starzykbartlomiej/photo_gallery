@@ -15,6 +15,9 @@
 #include <QInputDialog>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <iostream>
+#include <memory>
+
 #include "album.h"
 #include "edit.h"
 
@@ -30,6 +33,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void escPressEvent(QKeyEvent *event);
+    void newView(QString text, int type);
 
 private slots:
     void on_listImages_itemDoubleClicked(QListWidgetItem *item);
