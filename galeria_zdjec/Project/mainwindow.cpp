@@ -363,54 +363,39 @@ void MainWindow::on_actionBy_Na_e_triggered()
     QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
                                          tr("File Name:"), QLineEdit::Normal,
                                          "", &confirm);
-    if (text.length() > 0)
-    {
 
         imagesItems.clear();
-        dirItem.clear();
-        ui->AlbumListWidget->clear();
         ui->listImages->clear();
         imagesInfos.clear();
-        AlbumList.clear();
         QDir dir(QDir::home());
         QDir::setCurrent(dir.path());
-        QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
-        QDirIterator itr(dir.path()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums",QDir::AllDirs| QDir::NoDotAndDotDot);
-        while (itr.hasNext()) {
-                    AlbumList.push_back(itr.next());
-        }
-        foreach(auto album,AlbumList){
-            auto item=new QListWidgetItem(album.dirName());
-            ui->AlbumListWidget->addItem(album.dirName());
-            dirItem.push_back(*item);
-            dirPath.push_back(album.path());
-        }
-        while(it.hasNext())
+        QDirIterator iterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories);
+        while(iterator.hasNext())
         {
-            it.next();
+            iterator.next();
             int spr=1;
-            if(it.fileInfo().isFile()){
+            if(iterator.fileInfo().isFile()){
             foreach(auto it2, dirPath){
-                if(it.filePath()==it2+'/'+it.fileName()){
+                if(iterator.filePath()==it2+'/'+iterator.fileName()){
                     spr=0;
                     break;
                 }
             }
                 if(spr)
-                imagesInfos.push_back(it.fileInfo());
+                imagesInfos.push_back(iterator.fileInfo());
             }
         }
         ui->listImages->setViewMode(QListWidget::IconMode);
         ui->listImages->setIconSize(QSize(80,80));
         ui->listImages->setResizeMode(QListWidget::Adjust);
-        foreach(auto imageinfo, imagesInfos)
+        foreach(auto imageInfo, imagesInfos)
         {
-            auto item = new QListWidgetItem(QIcon(imageinfo.path() + '/' + imageinfo.fileName()),imageinfo.fileName());
+            auto item = new QListWidgetItem(QIcon(imageInfo.path() + '/' + imageInfo.fileName()),imageInfo.fileName());
             ui->listImages->addItem(item);
             imagesItems.push_back(*item);
         }
 
-    }
+
 
 
 }
