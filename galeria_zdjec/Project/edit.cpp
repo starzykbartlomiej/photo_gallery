@@ -8,19 +8,10 @@ Edit::Edit(QFileInfo imageFile,QWidget *parent) :
     ui->setupUi(this);
     imageObject=new QImage();
     imageObject->load(imageFile.filePath());
-    int height=ui->graphicsView->grab().height();
-    int width=ui->graphicsView->grab().width();
-    imageObject->scaled(width,height, Qt::KeepAspectRatio);
-    qDebug()<<imageFile.path();
-    qDebug()<<imageFile.fileName();
-    qDebug()<<imageFile.filePath();
     image = QPixmap::fromImage(*imageObject);
-    image.scaled(width,height, Qt::KeepAspectRatio);
     scene = new QGraphicsScene(this);
-    QGraphicsPixmapItem* p=scene->addPixmap(image.scaled(width,height,Qt::KeepAspectRatio));
-    scene->setSceneRect(image.scaled(width,height,Qt::KeepAspectRatio).rect());
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(p, Qt::KeepAspectRatio);
+    scene->addPixmap(image);
+    scene->setSceneRect(image.rect());
     ui->graphicsView->setScene(scene);
 }
 Edit::~Edit()
@@ -30,41 +21,35 @@ Edit::~Edit()
 
 void Edit::on_rotate_clicked()
 {
+
    ui->graphicsView->rotate(90);
-   int height=ui->graphicsView->grab().height();
-   int width=ui->graphicsView->grab().width();
-   image = QPixmap::fromImage(*imageObject);
-   image.scaled(width,height, Qt::KeepAspectRatio);
    scene = new QGraphicsScene(this);
-   QGraphicsPixmapItem* p=scene->addPixmap(image.scaled(width,height,Qt::KeepAspectRatio));
-   scene->setSceneRect(image.scaled(width,height,Qt::KeepAspectRatio).rect());
+   scene->addPixmap(image);
+   scene->setSceneRect(image.rect());
    ui->graphicsView->setScene(scene);
-   ui->graphicsView->fitInView(p, Qt::KeepAspectRatio);
-   ui->graphicsView->setScene(scene);
-   image=ui->graphicsView->viewport()->grab();
+   image=ui->graphicsView->grab();
+
 }
 
 void Edit::on_pushButton_2_clicked()
 {
 
-       QImage image2 = imageObject->convertToFormat(QImage::Format_Indexed8);
-       image2.setColorCount(256);
-             for(int i = 0; i < 256; i++)
-             {
-                 image2.setColor(i, qRgb(i, i, i));
-             }
-       QPixmap pixmap1(QPixmap::fromImage (image2));
+       //*imageObject=ui->graphicsView->grab().toImage();
        int height=ui->graphicsView->height();
        int width=ui->graphicsView->width();
-       image = QPixmap::fromImage(image2);
-       image.scaled(width,height, Qt::KeepAspectRatio);
+       //imageObject->scaled(width,height, Qt::KeepAspectRatio);
+       *imageObject = imageObject->convertToFormat(QImage::Format_Indexed8);
+       imageObject->setColorCount(256);
+             for(int i = 0; i < 256; i++)
+             {
+                 imageObject->setColor(i, qRgb(i, i, i));
+             }
+       QPixmap pixmap1(QPixmap::fromImage (*imageObject));
+       image = pixmap1;
        scene = new QGraphicsScene(this);
-       QGraphicsPixmapItem* p=scene->addPixmap(image.scaled(width,height,Qt::KeepAspectRatio));
-       scene->setSceneRect(image.scaled(width,height,Qt::KeepAspectRatio).rect());
+       scene->addPixmap(image);
+       scene->setSceneRect(image.rect());
        ui->graphicsView->setScene(scene);
-       ui->graphicsView->fitInView(p, Qt::KeepAspectRatio);
-       ui->graphicsView->setScene(scene);
-       image=ui->graphicsView->viewport()->grab();
 
 }
 void Edit::on_pushButton_clicked()
@@ -94,3 +79,4 @@ void Edit::on_pushButton_clicked()
 QFileInfo* Edit::file(){
     return f;
 }
+
