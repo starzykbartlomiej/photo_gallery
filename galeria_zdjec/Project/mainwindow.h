@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "album.h"
@@ -48,6 +49,10 @@ private slots:
     void on_pbRotate_clicked();
 
     void on_actionBy_Date_triggered();
+
+    void on_actionBy_Na_e_triggered();
+
+    void on_actionBy_Type_triggered();
 
 signals:
     void imageDoubleClicked();

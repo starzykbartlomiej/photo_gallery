@@ -354,4 +354,69 @@ void MainWindow::on_pbRotate_clicked()
 void MainWindow::on_actionBy_Date_triggered()
 {
 
+
+}
+
+void MainWindow::on_actionBy_Na_e_triggered()
+{
+    bool confirm;
+    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+                                         tr("File Name:"), QLineEdit::Normal,
+                                         "", &confirm);
+    if (text.length() > 0)
+    {
+
+        imagesItems.clear();
+        dirItem.clear();
+        ui->AlbumListWidget->clear();
+        ui->listImages->clear();
+        imagesInfos.clear();
+        AlbumList.clear();
+        QDir dir(QDir::home());
+        QDir::setCurrent(dir.path());
+        QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
+        QDirIterator itr(dir.path()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums",QDir::AllDirs| QDir::NoDotAndDotDot);
+        while (itr.hasNext()) {
+                    AlbumList.push_back(itr.next());
+        }
+        foreach(auto album,AlbumList){
+            auto item=new QListWidgetItem(album.dirName());
+            ui->AlbumListWidget->addItem(album.dirName());
+            dirItem.push_back(*item);
+            dirPath.push_back(album.path());
+        }
+        while(it.hasNext())
+        {
+            it.next();
+            int spr=1;
+            if(it.fileInfo().isFile()){
+            foreach(auto it2, dirPath){
+                if(it.filePath()==it2+'/'+it.fileName()){
+                    spr=0;
+                    break;
+                }
+            }
+                if(spr)
+                imagesInfos.push_back(it.fileInfo());
+            }
+        }
+        ui->listImages->setViewMode(QListWidget::IconMode);
+        ui->listImages->setIconSize(QSize(80,80));
+        ui->listImages->setResizeMode(QListWidget::Adjust);
+        foreach(auto imageinfo, imagesInfos)
+        {
+            auto item = new QListWidgetItem(QIcon(imageinfo.path() + '/' + imageinfo.fileName()),imageinfo.fileName());
+            ui->listImages->addItem(item);
+            imagesItems.push_back(*item);
+        }
+
+    }
+
+
+}
+
+void MainWindow::on_actionBy_Type_triggered()
+{
+
+
 }
