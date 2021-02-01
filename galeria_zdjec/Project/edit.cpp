@@ -22,12 +22,14 @@ Edit::~Edit()
 void Edit::on_rotate_clicked()
 {
 
-   ui->graphicsView->rotate(90);
+    QTransform rotating;
+    rotating.rotate(90);
+   *imageObject= imageObject->transformed(rotating);
+   image = QPixmap::fromImage(*imageObject);
    scene = new QGraphicsScene(this);
    scene->addPixmap(image);
    scene->setSceneRect(image.rect());
    ui->graphicsView->setScene(scene);
-   image=ui->graphicsView->grab();
 
 }
 
