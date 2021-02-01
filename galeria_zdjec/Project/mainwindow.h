@@ -59,6 +59,8 @@ private slots:
 
     void on_actionBy_Type_triggered();
 
+    void on_pushButton_3_clicked();
+
 signals:
     void imageDoubleClicked();
 
