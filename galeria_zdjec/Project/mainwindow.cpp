@@ -225,12 +225,18 @@ void MainWindow::on_pushButton_2_clicked()
     else
     {
         dir.mkdir(dir2.dirName());
+        QFile file(dir.path()+"/"+dir2.dirName()+"/description_"+dir2.dirName()+".txt");
+        file.open(QIODevice::ReadWrite | QIODevice::Text);
+        QTextStream out(&file);
+        out<<description;
+        file.close();
         AlbumList.push_back(dir2);
         auto item=new QListWidgetItem(dir2.dirName());
         ui->AlbumListWidget->addItem(dir2.dirName());
         dirItem.push_back(*item);
         ui->albumName->setText("");
         ui->DescriptionLine->setText("");
+
     }
 }
 
@@ -252,19 +258,10 @@ void MainWindow::on_pbAddtoalbum_clicked()
 void MainWindow::on_AlbumListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums/"+item->text());
-    //QString imgPath=QFileDialog::getOpenFileName(this,tr("Open Image"), dir.path(), tr("Image Files (*.png *.jpg *.bmp)"));
-//    if(imgPath==""){
-//        return;
-//    }
-    //QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
-//    while(it.hasNext()){
-//        it.next();
-//        qDebug()<<it.fileName();
-//    }
     Album album(dir.path());
     album.setModal(false);
+    album.setWindowTitle(item->text());
     album.exec();
-
 }
 
 void MainWindow::on_pbEdit_clicked()

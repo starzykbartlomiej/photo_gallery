@@ -61,6 +61,8 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_AlbumListWidget_itemClicked(QListWidgetItem *item);
+
 signals:
     void imageDoubleClicked();
 

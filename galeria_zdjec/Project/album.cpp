@@ -6,6 +6,18 @@ Album::Album(QString path,QWidget *parent) :
     ui(new Ui::Album)
 {
     ui->setupUi(this);
+    QString holder;
+    auto pathList = path.split("/");
+    auto last_element = pathList.last();
+    pathList.removeLast();
+    holder = pathList.join("/");
+    holder = holder+"/"+last_element+"/description_"+last_element+".txt";
+    QFile file(holder);
+    file.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream instream(&file);
+    QString line = instream.readLine();
+    file.close();
+    ui->textDescription->setText(line);
     QDirIterator it(path, {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
     while(it.hasNext()){
         it.next();
