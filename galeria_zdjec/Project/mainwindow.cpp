@@ -400,7 +400,7 @@ void MainWindow::newView(QString text="", int type=0)
     QDir::setCurrent(dir.path());
     std::unique_ptr<QDirIterator> iterator; //must be passed by pointer, in other case problem with redefintion and init
     if (type==0)  iterator.reset(new QDirIterator(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories));
-    if (type==1)  iterator.reset(new QDirIterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories));
+    else if (type==1)  iterator.reset(new QDirIterator(dir.path(), {text + "*.jpg", text + "*.png"}, QDir::Files, QDirIterator::Subdirectories));
     else if(type==2) iterator.reset(new QDirIterator(dir.path(), {"*."+text}, QDir::Files, QDirIterator::Subdirectories));
     else if(type==3) iterator.reset(new QDirIterator(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories));
 
@@ -452,5 +452,4 @@ void MainWindow::newView(QString text="", int type=0)
 void MainWindow::on_pushButton_3_clicked()
 {
     newView(0);
-
 }
