@@ -141,7 +141,7 @@ void MainWindow::on_pbNext_clicked()
     int height = ui->label_picture->height();
     ui->label_picture->setAlignment(Qt::AlignCenter);
     auto pix = imagesItems[index].icon().pixmap(QSize(width, height));
-    ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+    ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio)); //expanding
 }
 
 void MainWindow::on_pbBack_clicked()
@@ -204,7 +204,9 @@ void MainWindow::exitSlides()
 void MainWindow::on_pushButton_2_clicked()
 {
     QString albumName=ui->albumName->displayText();
-    if(albumName==""){
+    QString description = ui->DescriptionLine->displayText();
+    if(albumName.isEmpty())
+    {
         QMessageBox messageBox;
         messageBox.critical(0,"Error","Album must have name");
         messageBox.setFixedSize(500,200);
@@ -212,22 +214,23 @@ void MainWindow::on_pushButton_2_clicked()
     }
     QString pathAlbum;
     QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
-    qDebug() << dir.path();
     dir.setCurrent("/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
-    qDebug() << dir.path();
     QDir dir2(albumName);
-    if(dir2.exists()){
+    if(dir2.exists())
+    {
         QMessageBox messageBox;
-        messageBox.critical(0,"Error","Album had been created befor");
+        messageBox.critical(0,"Error","Album has been created before");
         messageBox.setFixedSize(500,200);
-    }else{
+    }
+    else
+    {
         dir.mkdir(dir2.dirName());
         AlbumList.push_back(dir2);
         auto item=new QListWidgetItem(dir2.dirName());
         ui->AlbumListWidget->addItem(dir2.dirName());
         dirItem.push_back(*item);
         ui->albumName->setText("");
-
+        ui->DescriptionLine->setText("");
     }
 }
 
