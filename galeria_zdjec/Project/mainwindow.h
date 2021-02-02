@@ -61,7 +61,7 @@ private slots:
 
     void on_pushButton_3_clicked();
 
-    void on_AlbumListWidget_itemClicked(QListWidgetItem *item);
+    void on_pushButton_4_clicked();
 
 signals:
     void imageDoubleClicked();
@@ -70,7 +70,7 @@ protected:
     Ui::MainWindow *ui;
     std::vector<QFileInfo> imagesInfos;
     std::vector<QListWidgetItem> imagesItems;
-    std::vector<QListWidgetItem> dirItem;
+    std::vector<QListWidgetItem*> dirItem;
     std::vector<QString> dirPath;
     std::vector<QDir> AlbumList;
     QListWidgetItem *currentImage;

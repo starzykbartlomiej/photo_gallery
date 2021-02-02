@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     foreach(auto album,AlbumList){
         auto item=new QListWidgetItem(album.dirName());
         ui->AlbumListWidget->addItem(album.dirName());
-        dirItem.push_back(*item);
+        dirItem.push_back(item);
         dirPath.push_back(album.path());
     }
     while(it.hasNext())
@@ -232,8 +232,8 @@ void MainWindow::on_pushButton_2_clicked()
         file.close();
         AlbumList.push_back(dir2);
         auto item=new QListWidgetItem(dir2.dirName());
-        ui->AlbumListWidget->addItem(dir2.dirName());
-        dirItem.push_back(*item);
+        ui->AlbumListWidget->addItem(item);
+        dirItem.push_back(item);
         ui->albumName->setText("");
         ui->DescriptionLine->setText("");
 
@@ -452,4 +452,47 @@ void MainWindow::newView(QString text="", int type=0)
 void MainWindow::on_pushButton_3_clicked()
 {
     newView(0);
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    auto text = ui->removeAlbum->text();
+    QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
+    dir.setCurrent(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
+    QDir dir_remove(text);
+    if(dir_remove.exists() && !text.isEmpty())
+    {
+        dir_remove.removeRecursively();
+        int remove_row = -1;
+        for(unsigned int i=0; i<dirItem.size(); i++)
+        {
+            if(dirItem[i]->text()==text)
+            {
+                remove_row = i;
+                dirItem.erase(dirItem.begin()+remove_row);
+                break;
+            }
+        }
+        ui->AlbumListWidget->takeItem(remove_row);
+        for(unsigned int i=0; i<AlbumList.size(); i++)
+        {
+            if(AlbumList[i] ==  dir_remove)
+            {
+                AlbumList.erase(AlbumList.begin()+i);
+                break;
+            }
+        }
+        ui->removeAlbum->setText("");
+        QMessageBox messageBox;
+        messageBox.information(0,"Success!","Album has been removed!");
+        messageBox.setFixedSize(500,200);
+    }
+    else
+    {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Album doesn't exist!");
+        messageBox.setFixedSize(500,200);
+    }
+
+
 }
