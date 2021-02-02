@@ -10,6 +10,9 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 #include <QFileDialog>
+#include <QMouseEvent>
+#include <QPoint>
+#include <QRubberBand>
 
 
 namespace Ui {
@@ -25,18 +28,24 @@ public:
     QFileInfo* file();
     int edit=0;
     ~Edit();
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
     void on_rotate_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_clicked();
+
 private:
     QFileInfo *f;
     Ui::Edit *ui;
     QPixmap image;
     QImage  *imageObject;
     QGraphicsScene *scene;
-
+    QPoint position;
+    QMouseEvent * event;
+    QRubberBand * rubberBand;
 };
 
 #endif // EDIT_H

@@ -81,4 +81,23 @@ void Edit::on_pushButton_clicked()
 QFileInfo* Edit::file(){
     return f;
 }
+void Edit::mousePressEvent(QMouseEvent *event)
+{
+    position = event->pos();
+    rubberBand = new QRubberBand(QRubberBand::Rectangle, ui->graphicsView);
+    rubberBand->setGeometry(QRect(position
+                                  , QSize()));
+    rubberBand->show();
+}
 
+void Edit::mouseMoveEvent(QMouseEvent *event)
+{
+    rubberBand->setGeometry(QRect(position, event->pos()).normalized());
+}
+
+void Edit::mouseReleaseEvent(QMouseEvent *event)
+{
+    rubberBand->hide();
+    // determine selection, for example using QRect::intersects()
+    // and QRect::contains().
+}
