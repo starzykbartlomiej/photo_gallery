@@ -18,6 +18,7 @@
 
 namespace Ui {
 class Edit;
+class mouseEvents;
 }
 
 class Edit : public QDialog
@@ -31,7 +32,6 @@ public:
     ~Edit();
 //    void mousePressEvent(QMouseEvent *event);
 //    void mouseMoveEvent(QMouseEvent *event);
-//    void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
     void on_rotate_clicked();
@@ -40,7 +40,7 @@ private slots:
     void on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint);
 
 private:
-    QFileInfo *f;
+    QFileInfo * f;
     Ui::Edit *ui;
     QPixmap image;
     QImage  *imageObject;
@@ -48,6 +48,9 @@ private:
     QPoint position;
     QMouseEvent * event;
     QRubberBand * rubberBand;
+    QRect arr[2];
+    QRect * point;
+    bool change;
 };
 
 #endif // EDIT_H

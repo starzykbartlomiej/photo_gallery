@@ -5,17 +5,17 @@ Edit::Edit(QFileInfo imageFile,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Edit)
 {
+    change = false;
     ui->setupUi(this);
     imageObject=new QImage();
     imageObject->load(imageFile.filePath());
     image = QPixmap::fromImage(*imageObject);
     scene = new QGraphicsScene(this);
     scene->addPixmap(image);
-    scene->setSceneRect(image.rect());
+    //scene->setSceneRect(image.rect());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
-
-
+    //ui->graphicsView->setMouseTracking(true);
 }
 Edit::~Edit()
 {
@@ -71,15 +71,11 @@ void Edit::on_pushButton_clicked()
 
                         );
 
-
-
             *imageObject = image.toImage();
             imageObject->save(imagePath+".jpg");
             this->close();
             edit=1;
             f=new QFileInfo(imagePath+".jpg");
-
-
 }
 QFileInfo* Edit::file(){
     return f;
@@ -108,13 +104,19 @@ QFileInfo* Edit::file(){
 
 void Edit::on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint)
 {
-    while(event->MouseButtonPress)
+    if(change == true)
+        change = false;
+    else
+        change = true;
+    if(viewportRect.isNull())
     {
-        qDebug() << viewportRect;
-        qDebug() << fromScenePoint;
-        qDebug() << toScenePoint;
+        change = !change;
+        qDebug() << arr[change];
+        QPixmap cropped = image.copy(arr[change]);
+        scene->addPixmap(cropped);
+        return;
     }
+    arr[change] = viewportRect;
     QImage croped = imageObject->copy(viewportRect);
-
-
 }
+
