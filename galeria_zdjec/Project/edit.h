@@ -13,6 +13,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QRubberBand>
+#include <QGraphicsView>
 
 
 namespace Ui {
@@ -28,14 +29,15 @@ public:
     QFileInfo* file();
     int edit=0;
     ~Edit();
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+//    void mousePressEvent(QMouseEvent *event);
+//    void mouseMoveEvent(QMouseEvent *event);
+//    void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
     void on_rotate_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_clicked();
+    void on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint);
 
 private:
     QFileInfo *f;
