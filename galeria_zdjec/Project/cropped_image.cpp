@@ -37,5 +37,10 @@ void Cropped_Image::on_Save_Image_clicked()
 
                     );
         jpg.save(imagePath+".jpg");
+        spr=1;
+        f=new QFileInfo(imagePath+".jpg");
         this->close();
+}
+QFileInfo* Cropped_Image::file(){
+    return f;
 }

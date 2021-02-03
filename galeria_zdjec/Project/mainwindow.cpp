@@ -76,6 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
     openState->assignProperty(ui->pbAddtoalbum,"enabled",true);
     openState->assignProperty(ui->stackedWidget, "currentIndex", 0);
 
+    slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
 
     connect(slidesState, SIGNAL(entered()), this, SLOT(showSlides()));
     connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides()));
@@ -429,6 +430,4 @@ void MainWindow::on_pushButton_4_clicked()
         messageBox.critical(0,"Error","Album doesn't exist!");
         messageBox.setFixedSize(500,200);
     }
-
-
 }
