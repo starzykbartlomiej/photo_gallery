@@ -16,13 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    album.cpp \
+    cropped_image.cpp \
+    edit.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    album.h \
+    cropped_image.h \
+    edit.h \
     mainwindow.h
 
 FORMS += \
+    album.ui \
+    cropped_image.ui \
+    edit.ui \
     mainwindow.ui
 
 # Default rules for deployment.
