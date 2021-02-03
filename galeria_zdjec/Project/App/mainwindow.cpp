@@ -86,9 +86,11 @@ MainWindow::MainWindow(QWidget *parent)
     openState->addTransition(ui->pbSlidesShow, SIGNAL(clicked()), slidesState);
     slidesState->addTransition(ui->pbFullScreenExit, SIGNAL(clicked()), startupState);
 
-
+    x=this->width();
+    y=this->height();
     stateMachine->setInitialState(startupState);
     stateMachine->start();
+
 }
 
 MainWindow::~MainWindow()
@@ -106,11 +108,11 @@ void MainWindow::on_listImages_itemDoubleClicked(QListWidgetItem *item)
 
     currentImage = item;
 
-    int width = ui->label_picture->width();
-    int height = ui->label_picture->height();
+    setWidth = ui->label_picture->width();
+    setHeight = ui->label_picture->height();
     ui->label_picture->setAlignment(Qt::AlignCenter);
-    auto pix = item->icon().pixmap(QSize(width, height));
-    ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+    auto pix = item->icon().pixmap(QSize(setWidth, setHeight));
+    ui->label_picture->setPixmap(pix.scaled(setWidth,setHeight, Qt::KeepAspectRatio));
 
     emit imageDoubleClicked();
 }
@@ -128,11 +130,11 @@ void MainWindow::on_pbNext_clicked()
     ui->statusbar->showMessage(imagesItems[index].text());
 
     currentImage = &(imagesItems[index]);
-    int width = ui->label_picture->width();
-    int height = ui->label_picture->height();
+    //int width = ui->label_picture->width();
+    //int height = ui->label_picture->height();
     ui->label_picture->setAlignment(Qt::AlignCenter);
-    auto pix = imagesItems[index].icon().pixmap(QSize(width, height));
-    ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio)); //expanding
+    auto pix = imagesItems[index].icon().pixmap(QSize(setWidth, setHeight));
+    ui->label_picture->setPixmap(pix.scaled(setWidth,setHeight, Qt::KeepAspectRatio)); //expanding
 }
 
 void MainWindow::on_pbBack_clicked()
@@ -148,20 +150,20 @@ void MainWindow::on_pbBack_clicked()
     ui->statusbar->showMessage(imagesItems[index].text());
 
     currentImage = &(imagesItems[index]);
-    int width = ui->label_picture->width();
-    int height = ui->label_picture->height();
+    //int width = ui->label_picture->width();
+    //int height = ui->label_picture->height();
     ui->label_picture->setAlignment(Qt::AlignCenter);
-    auto pix = imagesItems[index].icon().pixmap(QSize(width, height));
-    ui->label_picture->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+    auto pix = imagesItems[index].icon().pixmap(QSize(setWidth, setHeight));
+    ui->label_picture->setPixmap(pix.scaled(setWidth,setHeight, Qt::KeepAspectRatio));
 }
 
 void MainWindow::showSlides()
 {
-    int width = ui->labelSlide->width();
-    int height = ui->labelSlide->height();
+//    int width = ui->labelSlide->width();
+//    int height = ui->labelSlide->height();
     ui->labelSlide->setAlignment(Qt::AlignCenter);
-    auto pix = currentImage->icon().pixmap(QSize(width, height));
-    ui->labelSlide->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
+    auto pix = currentImage->icon().pixmap(QSize(setWidth, setHeight));
+    ui->labelSlide->setPixmap(pix.scaled(setWidth,setHeight, Qt::KeepAspectRatio));
 
     QWidget::showFullScreen();
     timer->start(3000);
@@ -430,4 +432,11 @@ void MainWindow::on_pushButton_4_clicked()
         messageBox.critical(0,"Error","Album doesn't exist!");
         messageBox.setFixedSize(500,200);
     }
+}
+
+void MainWindow::on_pbFullScreenExit_clicked()
+{
+
+    this->scroll(x,y);
+
 }

@@ -63,7 +63,10 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pbFullScreenExit_clicked();
+
 signals:
+    //void on_pbFullScreenExit_clicked();
     void imageDoubleClicked();
 
 protected:
@@ -75,5 +78,9 @@ protected:
     std::vector<QDir> AlbumList;
     QListWidgetItem *currentImage;
     QTimer *timer;
+    int setHeight;
+    int setWidth;
+    int x;
+    int y;
 };
 #endif // MAINWINDOW_H
