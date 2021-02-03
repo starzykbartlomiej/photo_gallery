@@ -23,7 +23,6 @@ Album::Album(QString path,QWidget *parent) :
         it.next();
         if(it.fileInfo().isFile())
         imagesInfos.push_back(it.fileInfo());
-        qDebug()<<it.fileName();
     }
     ui->listWidget->setViewMode(QListWidget::IconMode);
     ui->listWidget->setIconSize(QSize(80,80));

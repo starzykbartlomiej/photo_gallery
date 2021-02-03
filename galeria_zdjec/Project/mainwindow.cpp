@@ -56,7 +56,6 @@ MainWindow::MainWindow(QWidget *parent)
     auto startupState = new QState(stateMachine);
     auto openState = new QState(stateMachine);
     auto slidesState = new QState(stateMachine);
-    //auto AddToAlbumState=new QState(stateMachine);
 
     startupState->assignProperty(ui->pbBack, "enabled", false);
     startupState->assignProperty(ui->pbExit, "enabled", false);
@@ -77,17 +76,6 @@ MainWindow::MainWindow(QWidget *parent)
     openState->assignProperty(ui->pbAddtoalbum,"enabled",true);
     openState->assignProperty(ui->stackedWidget, "currentIndex", 0);
 
-//    AddToAlbumState->assignProperty(ui->pbBack, "enabled", false);
-//    AddToAlbumState->assignProperty(ui->pbExit, "enabled", false);
-//    AddToAlbumState->assignProperty(ui->pbNext, "enabled", false);
-//    AddToAlbumState->assignProperty(ui->pbRotate, "enabled", false);
-//    AddToAlbumState->assignProperty(ui->pbSlidesShow, "enabled", false);
-//    AddToAlbumState->assignProperty(ui->pbAddtoalbum,"enabled",true);
-//    AddToAlbumState->assignProperty(ui->stackedWidget, "currentIndex", 1);
-//    startupState->assignProperty(ui->stackedWidget_2, "currentIndex", 0);
-
-
-//    slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
 
     connect(slidesState, SIGNAL(entered()), this, SLOT(showSlides()));
     connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides()));
@@ -104,8 +92,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
-}
+    ui->AlbumListWidget->clear();
+    foreach(auto to_remove, dirItem) delete to_remove;
+    delete timer;
+    delete ui;}
 
 void MainWindow::on_listImages_itemDoubleClicked(QListWidgetItem *item)
 {
@@ -279,40 +269,11 @@ void MainWindow::on_pbEdit_clicked()
 
         if(!edit.edit){
             if(edit.close()){
-                qDebug()<<1;
                 break;
             }
             continue;
         }else {
-//            QDir dir(QDir::home());
-//            QDir::setCurrent(dir.path());
-//            imagesInfos.clear();
-//            ui->listImages->clear();
-//            QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
-//            while(it.hasNext())
-//            {
-//                it.next();
-//                int spr=1;
-//                if(it.fileInfo().isFile()){
-//                foreach(auto it2, dirPath){
-//                    if(it.filePath()==it2+'/'+it.fileName()){
-//                        spr=0;
-//                        break;
-//                    }
-//                }
-//                    if(spr)
-//                    imagesInfos.push_back(it.fileInfo());
-//                }
-//            }
-//            ui->listImages->setViewMode(QListWidget::IconMode);
-//            ui->listImages->setIconSize(QSize(80,80));
-//            ui->listImages->setResizeMode(QListWidget::Adjust);
-//            foreach(auto imageinfo, imagesInfos)
-//            {
-//                auto item = new QListWidgetItem(QIcon(imageinfo.path() + '/' + imageinfo.fileName()),imageinfo.fileName());
-//                ui->listImages->addItem(item);
-//                imagesItems.push_back(*item);
-//            }
+
             QFileInfo* newfile=edit.file();
             imagesInfos.push_back(*newfile);
             auto item = new QListWidgetItem(QIcon(newfile->filePath()),newfile->fileName());
@@ -328,29 +289,6 @@ void MainWindow::on_pbRotate_clicked()
 {
 
 }
-//void Edit::on_pushButton_clicked()
-//{
-//        QString imagePath = QFileDialog::getSaveFileName(
-
-//                        this,
-
-//                        tr("Save File"),
-
-//                        "",
-
-//                        tr("JPEG (*.jpg *.jpeg);;PNG (*.png)" )
-
-//                        );
-
-
-
-//            *imageObject = image.toImage();
-//            imageObject->save(imagePath+".jpg");
-//            this->close();
-
-
-
-//}
 
 
 void MainWindow::on_actionBy_Na_e_triggered()
@@ -360,8 +298,6 @@ void MainWindow::on_actionBy_Na_e_triggered()
                                          tr("File Name:"), QLineEdit::Normal,
                                          "", &confirm);
     if (confirm) newView(text, 1);
-
-
 }
 
 void MainWindow::on_actionBy_Type_triggered()
@@ -435,7 +371,6 @@ void MainWindow::newView(QString text="", int type=0)
         else
         {
             auto compare = imageInfo.created().toString().split(" ");
-            qDebug() << compare;
             compare.removeOne(compare[3]);
             compare.removeOne(compare[0]);
             auto text_compare = text.split(" ");
