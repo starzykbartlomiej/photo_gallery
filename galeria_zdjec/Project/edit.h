@@ -15,6 +15,7 @@
 #include <QPoint>
 #include <QRubberBand>
 #include <QGraphicsView>
+#include "cropped_image.h"
 
 
 namespace Ui {

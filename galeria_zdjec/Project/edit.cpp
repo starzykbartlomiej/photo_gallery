@@ -120,7 +120,8 @@ void Edit::on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QP
         change = !change;
         qDebug() << arr[change];
         QPixmap cropped = image.copy(arr[change]);
-        scene->addPixmap(cropped);
+        auto crops = new Cropped_Image(cropped, this);
+        crops->show();
         return;
     }
     arr[change] = viewportRect;
