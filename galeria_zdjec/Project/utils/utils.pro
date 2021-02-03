@@ -1,7 +1,7 @@
-TEMPLATE = subdirs
-QT       += core gui
+QT -= gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+TEMPLATE = lib
+DEFINES += UTILS_LIBRARY
 
 CONFIG += c++11
 
@@ -17,30 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp
+    album.cpp \
+    cropped_image.cpp \
+    edit.cpp \
+    utils.cpp
 
 HEADERS += \
-    mainwindow.h
-
-FORMS += \
-    album.ui \
-    cropped_image.ui \
-    edit.ui \
-    mainwindow.ui
+    album.h \
+    cropped_image.h \
+    edit.h \
+    utils_global.h \
+    utils.h
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+unix {
+    target.path = /usr/lib
+}
 !isEmpty(target.path): INSTALLS += target
-
-RESOURCES += \
-    Album.qrc
-
-SUBDIRS += \
-    App \
-    tests \
-    utils
-
-App.depends = utils
-test.depends = utils

@@ -21,7 +21,7 @@
 
 #include "album.h"
 #include "edit.h"
-a
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
