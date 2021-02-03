@@ -1,3 +1,4 @@
+#pragma once
 #ifndef EDIT_H
 #define EDIT_H
 #include <QDialog>
@@ -18,7 +19,6 @@
 
 namespace Ui {
 class Edit;
-class mouseEvents;
 }
 
 class Edit : public QDialog
@@ -51,6 +51,7 @@ private:
     QRect arr[2];
     QRect * point;
     bool change;
+    QGraphicsPixmapItem * pointer;
 };
 
 #endif // EDIT_H

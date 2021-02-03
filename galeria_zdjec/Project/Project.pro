@@ -17,17 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     album.cpp \
+    cropped_image.cpp \
     edit.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     album.h \
+    cropped_image.h \
     edit.h \
     mainwindow.h
 
 FORMS += \
     album.ui \
+    cropped_image.ui \
     edit.ui \
     mainwindow.ui
 

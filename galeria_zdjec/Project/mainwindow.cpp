@@ -435,6 +435,7 @@ void MainWindow::newView(QString text="", int type=0)
         else
         {
             auto compare = imageInfo.created().toString().split(" ");
+            qDebug() << compare;
             compare.removeOne(compare[3]);
             compare.removeOne(compare[0]);
             auto text_compare = text.split(" ");

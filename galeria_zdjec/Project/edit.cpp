@@ -12,10 +12,17 @@ Edit::Edit(QFileInfo imageFile,QWidget *parent) :
     image = QPixmap::fromImage(*imageObject);
     scene = new QGraphicsScene(this);
     scene->addPixmap(image);
-    //scene->setSceneRect(image.rect());
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMinimumHeight(imageObject->height());
+    ui->graphicsView->setMinimumWidth(imageObject->width());
+    ui->graphicsView->setMaximumHeight(imageObject->height());
+    ui->graphicsView->setMaximumWidth(imageObject->width());
+    qDebug() << ui->graphicsView->height();
+    qDebug() << ui->graphicsView->width();
+    qDebug() << imageObject->height();
+    qDebug() << imageObject->width();
     ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
-    //ui->graphicsView->setMouseTracking(true);
+
 }
 Edit::~Edit()
 {
@@ -30,7 +37,7 @@ void Edit::on_rotate_clicked()
    *imageObject= imageObject->transformed(rotating);
    image = QPixmap::fromImage(*imageObject);
    scene = new QGraphicsScene(this);
-   scene->addPixmap(image);
+   QGraphicsPixmapItem * pointer = scene->addPixmap(image);
    scene->setSceneRect(image.rect());
    ui->graphicsView->setScene(scene);
 
