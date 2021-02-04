@@ -15,7 +15,6 @@ This gui application was developed by students from applied computer science stu
 ### Configuration ###
 * Install qtcreator
 [Qt documentation](https://www.qt.io/)
-
 * How to build the code:  
 ``
 ! rm -rf build-Project
@@ -33,9 +32,12 @@ This gui application was developed by students from applied computer science stu
 ! build-Project/Project
 ``
 
-* How to run tests
+* Uml diagrams
 
-* [Qt documentation](https://bitbucket.org/tutorials/markdowndemo)
+![Uml1](uml1.png)  
+![Uml2](uml2.png)
+
+
 
 ### Contribution guidelines ###
 
