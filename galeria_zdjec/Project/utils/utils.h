@@ -2,6 +2,8 @@
 #define UTILS_H
 
 #include "utils_global.h"
+#include "image.h"
+#include "album.h"
 
 class UTILS_EXPORT Utils
 {

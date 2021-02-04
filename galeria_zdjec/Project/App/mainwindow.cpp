@@ -86,6 +86,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     x=this->width();
     y=this->height();
+    setWidth = ui->label_picture->width();
+    setHeight = ui->label_picture->height();
     stateMachine->setInitialState(startupState);
     stateMachine->start();
 
@@ -105,9 +107,6 @@ void MainWindow::on_listImages_itemDoubleClicked(QListWidgetItem *item)
     ui->statusbar->showMessage(item->text());
 
     currentImage = item;
-
-    setWidth = ui->label_picture->width();
-    setHeight = ui->label_picture->height();
     ui->label_picture->setAlignment(Qt::AlignCenter);
     auto pix = item->icon().pixmap(QSize(setWidth, setHeight));
     ui->label_picture->setPixmap(pix.scaled(setWidth,setHeight, Qt::KeepAspectRatio));
@@ -185,11 +184,11 @@ void MainWindow::viewSlide()
     auto pix = imagesItems[index].icon().pixmap(QSize(width, height));
     ui->labelSlide->setPixmap(pix.scaled(width,height, Qt::KeepAspectRatio));
 }
-void MainWindow::exitSlides()
-{
-    timer->stop();
-    QWidget::showNormal();
-}
+//void MainWindow::exitSlides()
+//{
+//    timer->stop();
+//    QWidget::showNormal();
+//}
 
 void MainWindow::on_pushButton_2_clicked()
 {
@@ -205,8 +204,7 @@ void MainWindow::on_pushButton_2_clicked()
     QString pathAlbum;
     QDir dir(QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
     dir.setCurrent("/oop_2020_galeria_zdjec/galeria_zdjec/Albums");
-    QDir dir2(albumName);
-    if(dir2.exists())
+    if(dir.exists(albumName))
     {
         QMessageBox messageBox;
         messageBox.critical(0,"Error","Album has been created before");
@@ -214,6 +212,7 @@ void MainWindow::on_pushButton_2_clicked()
     }
     else
     {
+        QDir dir2(albumName);
         dir.mkdir(dir2.dirName());
         QFile file(dir.path()+"/"+dir2.dirName()+"/description_"+dir2.dirName()+".txt");
         file.open(QIODevice::ReadWrite | QIODevice::Text);
@@ -424,7 +423,9 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_pbFullScreenExit_clicked()
 {
+   timer->stop();
+   QWidget::showNormal();
+   this->scroll(1.3*x,1.3*y);
 
-    this->scroll(x,y);
 
 }
