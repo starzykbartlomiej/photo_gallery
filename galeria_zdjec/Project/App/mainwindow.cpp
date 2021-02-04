@@ -90,9 +90,10 @@ MainWindow::MainWindow(QWidget *parent)
     slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
 
     connect(slidesState, SIGNAL(entered()), this, SLOT(showSlides()));
-    connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides()));
+//    connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides())); sprobuj usunac
 
     startupState->addTransition(this, SIGNAL(imageDoubleClicked()), openState);
+    startupState->addTransition(this, SIGNAL(filteredSig()), filteredState);
     filteredState->addTransition(ui->pbShowAll, SIGNAL(clicked()), startupState);
     openState->addTransition(ui->pbExit, SIGNAL(clicked()), startupState);
     openState->addTransition(ui->pbSlidesShow, SIGNAL(clicked()), slidesState);
@@ -302,6 +303,7 @@ void MainWindow::on_actionBy_Na_e_triggered()
                                          tr("File Name:"), QLineEdit::Normal,
                                          "", &confirm);
     if (confirm) newView(text, 1);
+    emit filteredSig();
 }
 
 void MainWindow::on_actionBy_Type_triggered()
@@ -311,6 +313,7 @@ void MainWindow::on_actionBy_Type_triggered()
     QString text = QInputDialog::getItem(this, tr("Filter by type"),
                                          tr("File Type:"), items, 0, false, &confirm); //works on cancel - to correct
     if (confirm) newView(text, 2);
+    emit filteredSig();
 }
 
 
@@ -329,6 +332,7 @@ void MainWindow::on_actionBy_Date_triggered()
         if (!date.isValid()) QMessageBox::warning(this, "Error", "Wrong date format!");
         else newView(date.toString(), 3);
     }
+    emit filteredSig();
 }
 
 void MainWindow::newView(QString text="", int type=0)

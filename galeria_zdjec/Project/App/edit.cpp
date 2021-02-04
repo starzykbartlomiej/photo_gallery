@@ -17,10 +17,6 @@ Edit::Edit(QFileInfo imageFile,QWidget *parent) :
     ui->graphicsView->setMinimumWidth(imageObject->width());
     ui->graphicsView->setMaximumHeight(imageObject->height());
     ui->graphicsView->setMaximumWidth(imageObject->width());
-    qDebug() << ui->graphicsView->height();
-    qDebug() << ui->graphicsView->width();
-    qDebug() << imageObject->height();
-    qDebug() << imageObject->width();
     ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
 
 }
@@ -118,7 +114,6 @@ void Edit::on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QP
     if(viewportRect.isNull())
     {
         change = !change;
-        qDebug() << arr[change];
         QPixmap cropped = image.copy(arr[change]);
         auto crops = new Cropped_Image(cropped, this);
         crops->exec();

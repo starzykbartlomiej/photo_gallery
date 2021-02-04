@@ -41,7 +41,7 @@ private slots:
     void on_pbNext_clicked();
     void on_pbBack_clicked();
     void showSlides();
-    //void exitSlides();
+//    void exitSlides();
     void viewSlide();
     void on_pushButton_2_clicked();
 
@@ -66,6 +66,7 @@ private slots:
 signals:
     //void on_pbFullScreenExit_clicked();
     void imageDoubleClicked();
+    void filteredSig();
 
 protected:
     Ui::MainWindow *ui;
