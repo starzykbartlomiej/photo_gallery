@@ -60,7 +60,6 @@ MainWindow::MainWindow(QWidget *parent)
     startupState->assignProperty(ui->pbBack, "enabled", false);
     startupState->assignProperty(ui->pbExit, "enabled", false);
     startupState->assignProperty(ui->pbNext, "enabled", false);
-    startupState->assignProperty(ui->pbRotate, "enabled", false);
     startupState->assignProperty(ui->pbSlidesShow, "enabled", false);
     startupState->assignProperty(ui->pbAddtoalbum,"enabled",false);
     startupState->assignProperty(ui->pbEdit,"enabled",false);
@@ -70,7 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
     openState->assignProperty(ui->pbBack, "enabled", true);
     openState->assignProperty(ui->pbExit, "enabled", true);
     openState->assignProperty(ui->pbNext, "enabled", true);
-    openState->assignProperty(ui->pbRotate, "enabled", true);
     openState->assignProperty(ui->pbEdit,"enabled",true);
     openState->assignProperty(ui->pbSlidesShow, "enabled", true);
     openState->assignProperty(ui->pbAddtoalbum,"enabled",true);
@@ -286,11 +284,6 @@ void MainWindow::on_pbEdit_clicked()
 
         }
     }
-}
-
-void MainWindow::on_pbRotate_clicked()
-{
-
 }
 
 

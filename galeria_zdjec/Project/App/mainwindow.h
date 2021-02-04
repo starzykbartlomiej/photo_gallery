@@ -51,8 +51,6 @@ private slots:
 
     void on_pbEdit_clicked();
 
-    void on_pbRotate_clicked();
-
     void on_actionBy_Date_triggered();
 
     void on_actionBy_Na_e_triggered();
