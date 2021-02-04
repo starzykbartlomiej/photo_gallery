@@ -57,11 +57,11 @@ private slots:
 
     void on_actionBy_Type_triggered();
 
-    void on_pushButton_3_clicked();
-
     void on_pushButton_4_clicked();
 
     void on_pbFullScreenExit_clicked();
+
+    void on_pbShowAll_clicked();
 
 signals:
     //void on_pbFullScreenExit_clicked();

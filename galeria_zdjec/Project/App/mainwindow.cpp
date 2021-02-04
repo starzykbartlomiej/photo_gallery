@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     auto startupState = new QState(stateMachine);
     auto openState = new QState(stateMachine);
     auto slidesState = new QState(stateMachine);
+    auto filteredState = new QState(stateMachine);
 
     startupState->assignProperty(ui->pbBack, "enabled", false);
     startupState->assignProperty(ui->pbExit, "enabled", false);
@@ -65,6 +66,17 @@ MainWindow::MainWindow(QWidget *parent)
     startupState->assignProperty(ui->pbEdit,"enabled",false);
     startupState->assignProperty(ui->stackedWidget, "currentIndex", 1);
     startupState->assignProperty(ui->stackedWidget_2, "currentIndex", 0);
+    startupState->assignProperty(ui->pbShowAll,"enabled",false);
+
+    filteredState->assignProperty(ui->pbBack, "enabled", false);
+    filteredState->assignProperty(ui->pbExit, "enabled", false);
+    filteredState->assignProperty(ui->pbNext, "enabled", false);
+    filteredState->assignProperty(ui->pbSlidesShow, "enabled", false);
+    filteredState->assignProperty(ui->pbAddtoalbum,"enabled",false);
+    filteredState->assignProperty(ui->pbEdit,"enabled",false);
+    filteredState->assignProperty(ui->stackedWidget, "currentIndex", 1);
+    filteredState->assignProperty(ui->stackedWidget_2, "currentIndex", 0);
+    filteredState->assignProperty(ui->pbShowAll,"enabled",true);
 
     openState->assignProperty(ui->pbBack, "enabled", true);
     openState->assignProperty(ui->pbExit, "enabled", true);
@@ -73,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
     openState->assignProperty(ui->pbSlidesShow, "enabled", true);
     openState->assignProperty(ui->pbAddtoalbum,"enabled",true);
     openState->assignProperty(ui->stackedWidget, "currentIndex", 0);
+    openState->assignProperty(ui->pbShowAll,"enabled",false);
 
     slidesState->assignProperty(ui->stackedWidget_2, "currentIndex", 1);
 
@@ -80,6 +93,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(startupState, SIGNAL(entered()), this, SLOT(exitSlides()));
 
     startupState->addTransition(this, SIGNAL(imageDoubleClicked()), openState);
+    filteredState->addTransition(ui->pbShowAll, SIGNAL(clicked()), startupState);
     openState->addTransition(ui->pbExit, SIGNAL(clicked()), startupState);
     openState->addTransition(ui->pbSlidesShow, SIGNAL(clicked()), slidesState);
     slidesState->addTransition(ui->pbFullScreenExit, SIGNAL(clicked()), startupState);
@@ -284,7 +298,7 @@ void MainWindow::on_pbEdit_clicked()
 void MainWindow::on_actionBy_Na_e_triggered()
 {
     bool confirm;
-    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+    QString text = QInputDialog::getText(this, tr("Filter by name"),
                                          tr("File Name:"), QLineEdit::Normal,
                                          "", &confirm);
     if (confirm) newView(text, 1);
@@ -294,7 +308,7 @@ void MainWindow::on_actionBy_Type_triggered()
 {
     QStringList items = {"jpg", "png"};
     bool confirm;
-    QString text = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),
+    QString text = QInputDialog::getItem(this, tr("Filter by type"),
                                          tr("File Type:"), items, 0, false, &confirm); //works on cancel - to correct
     if (confirm) newView(text, 2);
 }
@@ -303,7 +317,7 @@ void MainWindow::on_actionBy_Type_triggered()
 void MainWindow::on_actionBy_Date_triggered()
 {
     bool confirm;
-    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+    QString text = QInputDialog::getText(this, tr("Filter by date"),
                                          tr("File Date:"), QLineEdit::Normal,
                                          "", &confirm);
     if (confirm && !text.isEmpty())
@@ -375,11 +389,6 @@ void MainWindow::newView(QString text="", int type=0)
     }
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{
-    newView(0);
-}
-
 void MainWindow::on_pushButton_4_clicked()
 {
     auto text = ui->removeAlbum->text();
@@ -428,4 +437,9 @@ void MainWindow::on_pbFullScreenExit_clicked()
    this->scroll(1.3*x,1.3*y);
 
 
+}
+
+void MainWindow::on_pbShowAll_clicked()
+{
+    newView(0);
 }
