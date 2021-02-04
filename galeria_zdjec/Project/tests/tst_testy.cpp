@@ -50,6 +50,20 @@ private slots:
 
 
     }
+    void FileList(){
+          file f;
+          std::vector<QFileInfo> file;
+          QDir dir(QDir::home());
+          QDir::setCurrent(dir.path());
+          QDirIterator it(dir.path(), {"*.jpg", "*.png"}, QDir::Files, QDirIterator::Subdirectories);
+          while (it.hasNext()) {
+                      file.push_back(it.next());
+          }
+          QVERIFY(f.getFileList().size()==file.size());
+
+
+      }
+
 
 
 

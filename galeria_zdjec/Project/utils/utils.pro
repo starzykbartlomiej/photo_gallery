@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     album.cpp \
+    file.cpp \
     image.cpp \
     utils.cpp
 
 HEADERS += \
     album.h \
+    file.h \
     image.h \
     utils_global.h \
     utils.h

@@ -12,6 +12,7 @@ public:
     QString getpath();
 private:
     QString path;
+    QImage* imageObject;
 };
 
 #endif // IMAGE_H
