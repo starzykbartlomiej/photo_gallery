@@ -32,7 +32,7 @@ This gui application was developed by students from applied computer science stu
 ! build-Project/Project
 ``
 
-* Uml diagrams
+### Uml diagrams ###
 
 ![Uml1](uml1.png)  
 ![Uml2](uml2.png)
