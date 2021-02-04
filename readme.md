@@ -36,11 +36,3 @@ This gui application was developed by students from applied computer science stu
 
 ![Uml1](uml1.png)  
 ![Uml2](uml2.png)
-
-
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
