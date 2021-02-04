@@ -4,10 +4,12 @@ pipelines:
   default:
     - step:
         script:
-          - pushd galeria_zdjec/
+          - pushd galeria_zdjec/galeria_zdjec/
           -   mkdir build-Project && pushd build-Project
           -     qmake ../Project
-          -     make -j4 
+          -     make -j4
+          -     pushd tests/tst_testy
+          -     popd
           -   popd
           - popd
           - .ci/collect_reports.sh
