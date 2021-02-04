@@ -4,11 +4,12 @@ pipelines:
   default:
     - step:
         script:
-          - pushd galeria_zdjec/galeria_zdjec/
+          - pushd galeria_zdjec/
           -   mkdir build-Project && pushd build-Project
           -     qmake ../Project
           -     make -j4
           -     pushd tests/tst_testy
+          -       LD_LIBRARY_PATH=../../utils
           -     popd
           -   popd
           - popd
