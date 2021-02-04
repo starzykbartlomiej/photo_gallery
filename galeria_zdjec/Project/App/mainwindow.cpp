@@ -191,7 +191,6 @@ void MainWindow::exitSlides()
     QWidget::showNormal();
 }
 
-
 void MainWindow::on_pushButton_2_clicked()
 {
     QString albumName=ui->albumName->displayText();
@@ -240,11 +239,7 @@ void MainWindow::on_pbAddtoalbum_clicked()
     }
     QDir directory = QFileDialog::getExistingDirectory(this, tr("select directory"),QDir::homePath()+"/oop_2020_galeria_zdjec/galeria_zdjec/Albums",QFileDialog::ShowDirsOnly);
     QFile::copy(wantToSave.path()+'/'+wantToSave.fileName(),directory.path()+'/'+wantToSave.fileName());
-
-
 }
-
-
 
 void MainWindow::on_AlbumListWidget_itemDoubleClicked(QListWidgetItem *item)
 {
