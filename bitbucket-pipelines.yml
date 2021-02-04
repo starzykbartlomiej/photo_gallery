@@ -5,7 +5,7 @@ pipelines:
     - step:
         script:
           - pushd galeria_zdjec/
-          -   mkdir build-project && pushd build-project
+          -   mkdir build-Project && pushd build-Project
           -     qmake ../Project
           -     make -j4 
           -   popd
